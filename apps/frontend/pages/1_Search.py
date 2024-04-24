@@ -31,16 +31,16 @@ def clear_submit():
     st.session_state["submit"] = False
 
 
-with st.sidebar:
-    st.markdown("""# Instructions""")
-    st.markdown("""
-Azure AI Service(OpenAI, AI Studio)에 대해 궁금한 것을 검색하세요. 
+#with st.sidebar:
+#    st.markdown("""# Instructions""")
+#    st.markdown("""
+#Azure AI Service(OpenAI, AI Studio)에 대해 궁금한 것을 검색하세요. 
 
-For example:
-- Azure OpenAI 의 최신 기능을 알려줘. 
+#For example:
+#- Azure OpenAI 의 최신 기능을 알려줘. 
     
-    \nData Source(Docs PDF)에서 찾은 검색 결과를 기반으로 답변하기 때문에 공개적인 ChatGPT와 다르다는 것을 알 수 있습니다. 
-    """)
+#    \nData Source(Docs PDF)에서 찾은 검색 결과를 기반으로 답변하기 때문에 공개적인 ChatGPT와 다르다는 것을 알 수 있습니다. 
+#    """)
 
 coli1, coli2= st.columns([3,1])
 with coli1:

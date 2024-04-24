@@ -3,7 +3,7 @@ import streamlit as st
 import streamlit.components.v1 as components
 
 # From here down is all the StreamLit UI.
-st.set_page_config(page_title="GPT Smart Agent", page_icon="📖", layout="wide")
+st.set_page_config(page_title="Generative AI Chatbot", page_icon="📖", layout="wide")
 # Add custom CSS styles to adjust padding
 st.markdown("""
         <style>
@@ -14,21 +14,21 @@ st.markdown("""
         </style>
         """, unsafe_allow_html=True)
 
-with st.sidebar:
-    st.markdown("""# Instructions""")
-    st.markdown("""
+#with st.sidebar:
+#    st.markdown("""# Instructions""")
+#    st.markdown("""
 
-이 Chatbot은 독립적인 Backend Azure Web App에서 호스팅되며 봇 프레임워크 SDK를 사용하여 만들어졌습니다.
-(봇 인터페이스는 Azure에서 호스팅되는 Bot Service 앱의 창일 뿐입니다.)
+#이 Chatbot은 독립적인 Backend Azure Web App에서 호스팅되며 봇 프레임워크 SDK를 사용하여 만들어졌습니다.
+#(봇 인터페이스는 Azure에서 호스팅되는 Bot Service 앱의 창일 뿐입니다.)
 
-다음의 도구/플러그인을 이용할 수 있습니다.
+#다음의 도구/플러그인을 이용할 수 있습니다.
+#
+#- 일반적인 지식을 위한 ChatGPT (***질문에 @chatgpt 를 사용하세요***)
+#- Azure 특정 서비스 문서의 지식 검색 - Azure OpenAI, AI Studio (***질문에 @docsearch 를 사용하세요***)
+#- 책에 대한 지식을 검색 - 3 PDF books (***질문에 @booksearch 를 사용하세요***)
 
-- 일반적인 지식을 위한 ChatGPT (***질문에 @chatgpt 를 사용하세요***)
-- Azure 특정 서비스 문서의 지식 검색 - Azure OpenAI, AI Studio (***질문에 @docsearch 를 사용하세요***)
-- 책에 대한 지식을 검색 - 3 PDF books (***질문에 @booksearch 를 사용하세요***)
-
-참고: @로 시작하는 도구 이름을 사용하지 않으면 봇이 자체 지식이나 사용 가능한 도구를 사용하여 질문에 답변하려고 시도합니다.
-    """)
+#참고: @로 시작하는 도구 이름을 사용하지 않으면 봇이 자체 지식이나 사용 가능한 도구를 사용하여 질문에 답변하려고 시도합니다.
+#    """)
     
 st.markdown("""
         <style>
@@ -75,7 +75,7 @@ f"""
     </style>
   </head>
   <body>
-    <h1><img src='https://blobstorageo4edtammb3b6o.blob.core.windows.net/icon/SK Logo.png' height="40">Smart ChatBot Demo</h1> 
+    <h1><img src='https://blobstorageo4edtammb3b6o.blob.core.windows.net/icon/SK Logo.png' height="40">Generative AI Chatbot (SK) </h1> 
     <div id="webchat" role="main"></div>
     <script>
       // Set  the CSS rules.
