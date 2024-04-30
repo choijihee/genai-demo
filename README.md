@@ -12,25 +12,25 @@ by: Azure AI Search + Azure OpenAI + Bot Framework + Langchain + CosmosDB + Docu
 이 리포지토리는 <span style="color:red">OpenAI 기반 스마트 검색 엔진</span>을 구축하는 방법을 단계별로 알려드리기 위해 만들어졌습니다. 각 노트북은 서로를 기반으로 구축되며 두 애플리케이션을 구축하는 것으로 끝납니다.
 
 ---
-**Prerequisites Client 2 Weeks POC**
-* Azure subscription
-* Accepted Application to Azure Open AI, including GPT-4. <span style="color:red">If customer does not have GPT-4 approved, SK C&C can lend theirs during the workshop</span>
-* SK C&C members preferably to be added as Guests in clients Azure AD. If not possible, then customers can issue corporate IDs to SK C&C members
-* A Resource Group (RG)  needs to be set for <span style="color:red">this Workshop POC</span>, in the customer Azure tenant
-* The customer team and the SK C&C team must have Contributor permissions to this resource group so they can set everything up 5 weeks prior to <span style="color:red">the workshop</span>
-* A storage account must be set in place in the RG.
-* Customer Data/Documents must be uploaded to the blob storage account, at least two weeks prior to <span style="color:red">the workshop date</span>
-* A Multi-Tenant App Registration (Service Principal) must be created by the customer (save the Client Id and Secret Value).
-* Customer must provide the SK C&C Team , 10-20 questions (easy to hard) that they want the bot to respond correctly.
-* For IDE collaboration and standarization during <span style="color:red">workshop</span>, AML compute instances with Jupyper Lab will be used, for this, Azure Machine Learning Workspace must be deployed in the RG
-   * Note: Please ensure you have enough core compute quota in your Azure Machine Learning workspace 
+**2주간 POC 진행 시 고객 사전 준비 사항**
+* Azure 구독(Subscription)
+* GPT-4를 포함한 Azure Open AI 사용을 위한 액세스 요청 및 승인이 완료되어 있어야 합니다. <span style="color:red">만일 고객이 GPT-4에 대한 액세스 허용이 불가능한 경우, Workshop POC 기간 동안 SK C&C에서 OpenAI 리소스를 대여할 수 있습니다.</span>
+* SK C&C 담당자는 고객의 Azure AD에 Geust로 추가되는 것이 권고 사항이지만, 불가능한 경우 고객이 SK C&C 담당자에게 corporate ID를 발급해야 합니다.
+* 고객의 Azure 테넌트(Tenent)에 <span style="color:red">Workshop POC</span>을 위한 리소스 그룹(Resource Group)을 설정해야 합니다.
+* 고객 담당자와 SK C&C 담당자는 <span style="color:red">Workshop PoC</span> 5주 전에 모든 것을 설정할 수 있도록 리소스 그룹(Resource Group)에 대한 기여자(Contributor) 권한이 있어야 합니다.
+* Storage Account 리소스는 리소스 그룹(Resource Group)에 생성되어야 합니다.
+* 고객의 데이터/문서는 <span style="color:red">Workshop PoC 기간</span> 2주 전에 Storage Account의 Blob Storage에 업로드 되어야 합니다.at least two weeks prior to 
+* 멀티 테넌트 앱 등록(Service Principal)은 고객이 생성해야 합니다. (생성 시 Client ID와 Secret Value는 저장해두어야 합니다.)
+* 고객은 Bot이 올바르게 응답하기를 원하는 10~20개의 질문(쉬움 ~ 어려움)을 SK C&C에 제공해야 합니다.
+* <span style="color:red">Workshop PoC</span> 진행 시 IDE 협업 및 표준화를 위해 Jupyter Lab을 갖춘 Azure Machine Learning 컴퓨팅 인스턴스가 사용됩니다.
+   * 참고: Azure Machine Learning 작업 영역에 Core 컴퓨팅 할당량이 충분한지 확인해야 합니다. 
 
 ---
-# Architecture 
+# 아키텍처
 <span style="color:red">*※ The below need to be udated.*</span><br>
 ![Architecture](./images/GPT-Smart-Search-Architecture2.jpg "Architecture")
 
-## Flow
+## User Flow
 1. 사용자가 질의를 합니다.
 2. App에서 OpenAI GPT-4 LLM은 사용자 입력에 따라 사용할 소스를 결정하기 위해 Smart 프롬프트를 사용합니다.
 3. Five types of sources are available:
@@ -46,59 +46,59 @@ by: Azure AI Search + Azure OpenAI + Bot Framework + Langchain + CosmosDB + Docu
 6. 답변이 사용자에게 전달됩니다. 
 
 ---
-## Demo
+## 데모 링크
 <span style="color:red">*※ The below need to be udated.*</span><br>
 https://webapp-frontend-2znp775rdhyvo.azurewebsites.net/
 
 
 ---
 
-## 🔧**Features**
+## 🔧**기능**
 
-   - Uses [Bot Framework](https://dev.botframework.com/) and [Bot Service](https://azure.microsoft.com/en-us/products/bot-services/) to Host the Bot API Backend and to expose it to multiple channels including MS Teams.
+   - [Bot Framework](https://dev.botframework.com/) 및 [Bot Service](https://azure.microsoft.com/en-us/products/bot-services/) 를 사용하여 Bot API 백엔드를 호스팅하고 이를 MS Teams를 포함한 여러 채널에 노출합니다.
    - 100% Python.
-   - Uses [Azure AI Services](https://azure.microsoft.com/en-us/products/cognitive-services/) to index and enrich unstructured documents: OCR over images, Chunking and automated vectorization.
-   - Uses Hybrid Search Capabilities of Azure AI Search to provide the best semantic answer (Text and Vector search combined).
-   - Uses [LangChain](https://langchain.readthedocs.io/en/latest/) as a wrapper for interacting with Azure OpenAI , vector stores, constructing prompts and creating agents.
-   - Multi-Lingual (ingests, indexes and understand any language)
-   - Multi-Index -> multiple search indexes
-   - Uses [Azure AI Document Intelligence SDK (former Form Recognizer)](https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/overview?view=doc-intel-3.0.0) to parse complex/large PDF documents
-   - Uses CosmosDB as persistent memory to save user's conversations.
-   - Uses [Streamlit](https://streamlit.io/) to build the Frontend web application in python.
+   - [Azure AI Services](https://azure.microsoft.com/en-us/products/cognitive-services/)를 사용하여 구조화되지 않은 문서(이미지에 대한 OCR, 청킹 및 자동화된 벡터화)를 인덱싱하고 강화합니다.
+   - Azure AI Search의 하이브리드 검색 기능을 사용하여 최상의 의미론적 답변을 제공합니다(텍스트 및 벡터 검색 결합).
+   - Azure OpenAI, 벡터 저장소와 상호 작용하고 프롬프트 구성 및 에이전트 생성을 위한 wrapper로 [LangChain](https://langchain.readthedocs.io/en/latest/)을 사용합니다.
+   - 다국어에 대한 수집, 인덱스 및 이해
+   - 멀티 인덱스 -> 다중 검색 인덱스
+   - [Azure AI Document Intelligence SDK (former Form Recognizer)](https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/overview?view=doc-intel-3.0.0)를 사용하여 복잡하고 큰 PDF 문서를 구문 분석합니다.
+   - CosmosDB를 영구 메모리로 사용하여 사용자 대화를 저장합니다.
+   - [Streamlit](https://streamlit.io/)Streamlit을 사용하여 Python으로 프런트엔드 웹 애플리케이션을 구축합니다.
    
 
 ---
 
-## **Steps to Run the POC/Accelerator**
+## **POC 실행 단계**
 
-Note: (Pre-requisite) You need to have an Azure OpenAI service already created
+참고: (사전 준비 사항) Azure OpenAI 리소스가 생성되어 있어야 합니다.
 
-1. Fork this repo to your Github account.
-2. In Azure OpenAI studio, deploy these models (older models than the ones stated below won't work):
+1. 이 레포지토리를 Fork 합니다.
+2. Azure OpenAI Studio에서 아래의 모델들을 배포합니다. (이전 모델들은 이 PoC에서 동작하지 않을 수 있습니다.):
    - "gpt-35-turbo-1106 (or newer)" 
    - "gpt-4-turbo-1106  (or newer)"
    - "text-embedding-ada-002 (or newer)"
-3. Create a Resource Group where all the assets of this accelerator are going to be. Azure OpenAI can be in different RG or a different Subscription.
-4. ClICK BELOW to create all the Azure Infrastructure needed to run the Notebooks (Azure AI Search, Azure AI Services, etc):
+3. 이 PoC의 모든 리소스가 포함될 리소스 그룹을 생성합니다. Azure OpenAI 는 다른 리소스 그룹 또는 다른 구독에 있을 수 있습니다.
+4. Notebook(Azure AI Search, Azure AI Services, etc)을 실행하는데 필요한 모든 Azure 인프라를 실행하려면 아래의 링크를 클릭하세요.:
 
 <span style="color:red">*※ The below need to be udated.*</span><br>
 [![Deploy To Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fendingone%2FAzure-AI-Search-Azure-OpenAI-Workbench%2Fmain%2Fazuredeploy.json) 
 
-**Note**: If you have never created a `Azure AI Services Multi-Service account` before, please create one manually in the azure portal to read and accept the Responsible AI terms. Once this is deployed, delete this and then use the above deployment button.
+**참고**: 만일 이전에 `Azure AI Services Multi-Service account` 리소스를 생성한 적이 없다면 Azure Portal에서 수동으로 계정을 만들어 Responsible AI 약관을 읽고 동의하세요. 배포가 완료되면 삭제한 후 위의 배포 버튼을 사용하세요.
 
-5. Clone your Forked repo to your AML Compute Instance. If your repo is private, see below in Troubleshooting section how to clone a private repo.
+5. Fork된 레포지토리를 AML 컴퓨팅 인스턴스에 복제합니다. 저장소가 비공개인 경우 아래의 문제 해결 섹션에서 비공개 저장소를 복제하는 방법을 참조하세요.
 
-6. Make sure you run the notebooks on a **Python 3.10 conda enviroment** or newer
-7. Install the dependencies on your machine (make sure you do the below pip comand on the same conda environment that you are going to run the notebooks. For example, in AZML compute instance run:
+6. **Python 3.10 conda 환경** 이상에서 노트북을 실행해야 합니다.
+7. 컴퓨터에 종속성을 설치합니다(노트북을 실행할 동일한 conda 환경에서 아래 pip 명령을 수행해야 합니다. 예를 들어 AML 컴퓨팅 인스턴스에서 다음을 실행합니다.):
 ```
 conda activate azureml_py310_sdkv2
 pip install -r ./common/requirements.txt
 ```
 
-You might get some pip dependancies errors, but that is ok, the libraries were installed correctly regardless of the error.
+일부 pip 종속성 오류가 발생할 수 있지만 괜찮습니다. 오류에 관계없이 라이브러리가 올바르게 설치되었습니다.
 
-8. Edit the file `credentials.env` with your own values from the services created in step 4.
-9. **Run the Notebooks in order**. They build up on top of each other.
+8. 4단계에서 생성된 서비스의 고유한 값으로 `credentials.env` 파일을 편집합니다.
+9. **노트북을 순서대로 실행합니다.** 
 
 ---
 
