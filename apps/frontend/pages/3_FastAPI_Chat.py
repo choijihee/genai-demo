@@ -72,7 +72,7 @@ st.markdown("""
 # ENTER HERE YOUR LANGSERVE FASTAPI ENDPOINT
 # for example: "https://webapp-backend-botid-zf4fwhz3gdn64-staging.azurewebsites.net"
 
-url = "https://webapp-frontend-3h6aqgwxxzpak-staging.azurewebsites.net" + "/agent/stream_events"
+url = "https://webapp-backend-botid-3h6aqgwxxzpak-staging.azurewebsites.net" + "/agent/stream_events"
 
 
 def get_or_create_ids():
@@ -162,6 +162,16 @@ user_query = st.chat_input("메세지를 여기에 입력하세요...")
 if user_query is not None and user_query != "":
     st.session_state.chat_history.append(HumanMessage(content=user_query))
 
+    st.markdown(
+    """
+    <style>
+        .stChatMessage {
+            text-align: right;
+        }
+    </style>
+    """,
+        unsafe_allow_html=True,
+    )
     with st.chat_message("Human"):
         st.markdown(user_query)
 
