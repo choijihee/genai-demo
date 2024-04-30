@@ -11,7 +11,34 @@ import json
 import sys
 import time
 import random
-from common.prompts import WELCOME_MESSAGE
+
+####### Welcome Message for the Bot Service #################
+WELCOME_MESSAGE = """
+안녕하세요! \U0001F44B
+
+저는 여러분을 돕기 위해 설계된 스마트 가상 비서인 Jarvis입니다.
+저와 소통하는 방법은 아래와 같습니다.
+
+질문에 효과적으로 답변할 수 있는 다양한 플러그인과 도구가 준비되어 있습니다. 사용 가능한 옵션은 다음과 같습니다.
+
+1. \U0001F4A1 **chatgpt**: 이 도구를 사용하면 제가 학습한 데이터를 기반으로 저만의 지식을 활용할 수 있습니다. (제 훈련 데이터는 2021년까지만 제공된다는 점에 유의하세요.)
+
+2. \U0001F50D **docsearch**: 이 도구를 사용하면 전문 검색 엔진 색인을 검색할 수 있습니다. 여기에는 Azure 서비스 소개 Docs 자료가 포함되어 있습니다. (Azure AI Service)
+
+모든 출처에서 필요한 정보를 제공하고 답변을 도출하는 데 사용한 출처도 언급합니다. 이렇게 하면 정보의 출처를 투명하게 파악하고 제가 어떻게 답변에 도달했는지 이해할 수 있습니다.
+
+제 기능을 최대한 활용하려면 질문할 때 제가 어떤 도구를 사용했으면 좋겠는지 구체적으로 언급해 주세요. 예를 들면..
+
+```
+chatgpt, pandas를 사용하여 URL에서 원격 파일을 읽으려면 어떻게 해야 하나요?
+docsearch, chloroquine이 정말 코로나 바이러스에 효과가 있나요?
+```
+
+궁금한 점이 있으면 언제든지 질문하고 활용하고 싶은 도구를 지정해 주세요. 제가 도와드리겠습니다!
+
+---
+"""
+###########################################################
 # Env variables needed by langchain
 os.environ["OPENAI_API_VERSION"] = os.environ.get("AZURE_OPENAI_API_VERSION")
 
@@ -45,7 +72,7 @@ st.markdown("""
 # ENTER HERE YOUR LANGSERVE FASTAPI ENDPOINT
 # for example: "https://webapp-backend-botid-zf4fwhz3gdn64-staging.azurewebsites.net"
 
-url = "https://<name-of-backend-app-service>-staging.azurewebsites.net" + "/agent/stream_events"
+url = "https://webapp-frontend-3h6aqgwxxzpak-staging.azurewebsites.net" + "/agent/stream_events"
 
 
 def get_or_create_ids():
