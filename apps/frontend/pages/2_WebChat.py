@@ -25,7 +25,6 @@ with st.sidebar:
 
 - 일반적인 지식을 위한 ChatGPT (***질문에 @chatgpt 를 사용하세요***)
 - Azure 특정 서비스 문서의 지식 검색 - Azure OpenAI, AI Studio (***질문에 @docsearch 를 사용하세요***)
-- 책에 대한 지식을 검색 - 3 PDF books (***질문에 @booksearch 를 사용하세요***)
 
 참고: @로 시작하는 도구 이름을 사용하지 않으면 봇이 자체 지식이나 사용 가능한 도구를 사용하여 질문에 답변하려고 시도합니다.
     """)
@@ -75,7 +74,7 @@ f"""
     </style>
   </head>
   <body>
-    <h1><img src='https://blobstorageo4edtammb3b6o.blob.core.windows.net/icon/SK Logo.png' height="40">Smart ChatBot Demo</h1> 
+    <h1><img src='https://blobstorage3h6aqgwxxzpak.blob.core.windows.net/icon/sk_logo.png' height="40">Smart ChatBot Demo</h1> 
     <div id="webchat" role="main"></div>
     <script>
       // Set  the CSS rules.
