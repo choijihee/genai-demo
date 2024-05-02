@@ -162,18 +162,14 @@ user_query = st.chat_input("메세지를 여기에 입력하세요...")
 if user_query is not None and user_query != "":
     st.session_state.chat_history.append(HumanMessage(content=user_query))
 
-    st.markdown(
-    """
+    with st.chat_message("Human"):
+        st.markdown(user_query,"""
     <style>
         .stChatMessage {
             text-align: right;
         }
     </style>
-    """,
-        unsafe_allow_html=True,
-    )
-    with st.chat_message("Human"):
-        st.markdown(user_query)
+    """)
 
     with st.chat_message("AI", avatar='https://blobstorage3h6aqgwxxzpak.blob.core.windows.net/icon/sk_logo.png'):
         response = st.write_stream(consume_api(url, user_query, session_id, user_id))
