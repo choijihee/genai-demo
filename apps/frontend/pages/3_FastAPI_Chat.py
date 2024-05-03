@@ -45,19 +45,19 @@ os.environ["OPENAI_API_VERSION"] = os.environ.get("AZURE_OPENAI_API_VERSION")
 # app config
 st.set_page_config(page_title="FastAPI Backend Bot", page_icon="🤖", layout="wide")
 
-with st.sidebar:
-    st.markdown("""# Instructions""")
-    st.markdown("""
+# with st.sidebar:
+#     st.markdown("""# Instructions""")
+#     st.markdown("""
 
-이 Chatbot은 독립적인 Backend Azure Web App에서 호스팅되며 LangServe를 사용하여 만들어졌습니다.
+# 이 Chatbot은 독립적인 Backend Azure Web App에서 호스팅되며 LangServe를 사용하여 만들어졌습니다.
 
-다음의 도구/플러그인을 이용할 수 있습니다.
+# 다음의 도구/플러그인을 이용할 수 있습니다.
 
-- 일반적인 지식을 위한 ChatGPT (***질문에 @chatgpt 를 사용하세요***)
-- Azure 특정 서비스 문서의 지식 검색 - Azure OpenAI, AI Studio (***질문에 @docsearch 를 사용하세요***)
+# - 일반적인 지식을 위한 ChatGPT (***질문에 @chatgpt 를 사용하세요***)
+# - Azure 특정 서비스 문서의 지식 검색 - Azure OpenAI, AI Studio (***질문에 @docsearch 를 사용하세요***)
 
-참고: @로 시작하는 도구 이름을 사용하지 않으면 봇이 자체 지식이나 사용 가능한 도구를 사용하여 질문에 답변하려고 시도합니다.
-    """)
+# 참고: @로 시작하는 도구 이름을 사용하지 않으면 봇이 자체 지식이나 사용 가능한 도구를 사용하여 질문에 답변하려고 시도합니다.
+#     """)
 
 st.markdown("""
         <style>
