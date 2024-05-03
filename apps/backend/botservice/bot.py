@@ -51,12 +51,12 @@ class BotServiceCallbackHandler(BaseCallbackHandler):
     async def on_llm_error(self, error: Union[Exception, KeyboardInterrupt], **kwargs: Any) -> Any:
         await self.tc.send_activity(f"LLM Error: {error}\n")
 
-    async def on_tool_start(self, serialized: Dict[str, Any], input_str: str, **kwargs: Any) -> Any:
-        await self.tc.send_activity(f"Tool: {serialized['name']}")
+    # async def on_tool_start(self, serialized: Dict[str, Any], input_str: str, **kwargs: Any) -> Any:
+    #     await self.tc.send_activity(f"Tool: {serialized['name']}")
 
-    async def on_agent_action(self, action: AgentAction, **kwargs: Any) -> Any:
-        await self.tc.send_activity(f"\u2611{action.log} ...")
-        await self.tc.send_activity(Activity(type=ActivityTypes.typing))
+    # async def on_agent_action(self, action: AgentAction, **kwargs: Any) -> Any:
+    #     await self.tc.send_activity(f"\u2611{action.log} ...")
+    #     await self.tc.send_activity(Activity(type=ActivityTypes.typing))
 
             
             

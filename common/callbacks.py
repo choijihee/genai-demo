@@ -20,13 +20,13 @@ class StdOutCallbackHandler(BaseCallbackHandler):
         """Run when LLM errors."""
         sys.stdout.write(f"LLM Error: {error}\n")
 
-    def on_tool_start(self, serialized: Dict[str, Any], input_str: str, **kwargs: Any) -> Any:
-        sys.stdout.write(f"Tool: {serialized['name']}\n")
+    # def on_tool_start(self, serialized: Dict[str, Any], input_str: str, **kwargs: Any) -> Any:
+    #     sys.stdout.write(f"Tool: {serialized['name']}\n")
         
-    def on_retriever_start(self, serialized: Dict[str, Any], query: str) -> Any:
-        sys.stdout.write(f"Retriever: {serialized}\n")
+    # def on_retriever_start(self, serialized: Dict[str, Any], query: str) -> Any:
+    #     sys.stdout.write(f"Retriever: {serialized}\n")
         
-    def on_agent_action(self, action: AgentAction, **kwargs: Any) -> Any:
-        sys.stdout.write(f"Agent Action: {action.log}\n")
+    # def on_agent_action(self, action: AgentAction, **kwargs: Any) -> Any:
+    #     sys.stdout.write(f"Agent Action: {action.log}\n")
                
             

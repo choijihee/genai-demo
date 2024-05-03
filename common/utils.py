@@ -432,88 +432,88 @@ class DocSearchAgent(BaseTool):
     
     
 
-# class CSVTabularAgent(BaseTool):
-#     """Agent to interact with CSV files"""
+class CSVTabularAgent(BaseTool):
+    """Agent to interact with CSV files"""
     
-#     name = "csvfile"
-#     description = "useful when the questions includes the term: csvfile.\n"
-#     args_schema: Type[BaseModel] = SearchInput
+    name = "csvfile"
+    description = "useful when the questions includes the term: csvfile.\n"
+    args_schema: Type[BaseModel] = SearchInput
 
-#     path: str
-#     llm: AzureChatOpenAI
+    path: str
+    llm: AzureChatOpenAI
     
-#     def _run(self, query: str, run_manager: Optional[CallbackManagerForToolRun] = None) -> str:
+    def _run(self, query: str, run_manager: Optional[CallbackManagerForToolRun] = None) -> str:
         
-#         # try:
-#         agent_executor = create_csv_agent(self.llm, self.path, verbose=self.verbose, 
-#                                  callback_manager=self.callbacks,
-#                                  agent_type="openai-tools",
-#                                  prefix=CSV_PROMPT_PREFIX)
+        # try:
+        agent_executor = create_csv_agent(self.llm, self.path, verbose=self.verbose, 
+                                 callback_manager=self.callbacks,
+                                 agent_type="openai-tools",
+                                 prefix=CSV_PROMPT_PREFIX)
 
-#         response = agent_executor.invoke(query)['output'] 
+        response = agent_executor.invoke(query)['output'] 
 
 
-#         return response
-#         # except Exception as e:
-#         #     print(e)
-#         #     response = e
-#         #     return response
+        return response
+        # except Exception as e:
+        #     print(e)
+        #     response = e
+        #     return response
     
-#     async def _arun(self, query: str, run_manager: Optional[AsyncCallbackManagerForToolRun] = None) -> str:
-#         """Use the tool asynchronously."""
-#         raise NotImplementedError("CSVTabularTool does not support async")
+    async def _arun(self, query: str, run_manager: Optional[AsyncCallbackManagerForToolRun] = None) -> str:
+        """Use the tool asynchronously."""
+        raise NotImplementedError("CSVTabularTool does not support async")
         
         
-# class SQLSearchAgent(BaseTool):
-#     """Agent to interact with SQL databases"""
+class SQLSearchAgent(BaseTool):
+    """Agent to interact with SQL databases"""
     
-#     name = "sqlsearch"
-#     description = "useful when the questions includes the term: sqlsearch.\n"
-#     args_schema: Type[BaseModel] = SearchInput
+    name = "sqlsearch"
+    description = "useful when the questions includes the term: sqlsearch.\n"
+    args_schema: Type[BaseModel] = SearchInput
 
-#     llm: AzureChatOpenAI
-#     k: int = 30
+    llm: AzureChatOpenAI
+    k: int = 30
     
-#     def _run(self, query: str, run_manager: Optional[CallbackManagerForToolRun] = None) -> str:
-#         db_config = {
-#             'drivername': 'mssql+pyodbc',
-#             'username': os.environ["SQL_SERVER_USERNAME"] +'@'+ os.environ["SQL_SERVER_NAME"],
-#             'password': os.environ["SQL_SERVER_PASSWORD"],
-#             'host': os.environ["SQL_SERVER_NAME"],
-#             'port': 1433,
-#             'database': os.environ["SQL_SERVER_DATABASE"],
-#             'query': {'driver': 'ODBC Driver 17 for SQL Server'}
-#         }
+    def _run(self, query: str, run_manager: Optional[CallbackManagerForToolRun] = None) -> str:
+        db_config = {
+            'drivername': 'mssql+pyodbc',
+            'username': os.environ["SQL_SERVER_USERNAME"] +'@'+ os.environ["SQL_SERVER_NAME"],
+            'password': os.environ["SQL_SERVER_PASSWORD"],
+            'host': os.environ["SQL_SERVER_NAME"],
+            'port': 1433,
+            'database': os.environ["SQL_SERVER_DATABASE"],
+            'query': {'driver': 'ODBC Driver 17 for SQL Server'}
+        }
 
-#         db_url = URL.create(**db_config)
-#         db = SQLDatabase.from_uri(db_url)
-#         toolkit = SQLDatabaseToolkit(db=db, llm=self.llm)
-#         agent_executor = create_sql_agent(
-#             prefix=MSSQL_AGENT_PREFIX,
-#             suffix=MSSQL_AGENT_SUFFIX,
-#             format_instructions = MSSQL_AGENT_FORMAT_INSTRUCTIONS,
-#             llm=self.llm,
-#             toolkit=toolkit,
-#             callback_manager=self.callbacks,
-#             top_k=self.k,
-#             verbose=self.verbose,
-#             agent_type="openai-tools"
-#         )
+        db_url = URL.create(**db_config)
+        db = SQLDatabase.from_uri(db_url)
+        toolkit = SQLDatabaseToolkit(db=db, llm=self.llm)
+        agent_executor = create_sql_agent(
+            prefix=MSSQL_AGENT_PREFIX,
+            suffix=MSSQL_AGENT_SUFFIX,
+            format_instructions = MSSQL_AGENT_FORMAT_INSTRUCTIONS,
+            llm=self.llm,
+            toolkit=toolkit,
+            callback_manager=self.callbacks,
+            top_k=self.k,
+            verbose=self.verbose,
+            agent_type="openai-tools"
+        )
 
-#         for i in range(2):
-#             try:
-#                 response = agent_executor.invoke(query)["output"] 
-#                 break
-#             except Exception as e:
-#                 response = str(e)
-#                 continue
+        for i in range(2):
+            try:
+                response = agent_executor.invoke(query)["output"] 
+                break
+            except Exception as e:
+                response = str(e)
+                continue
 
-#         return response
+        return response
         
     
-#     async def _arun(self, query: str, run_manager: Optional[AsyncCallbackManagerForToolRun] = None) -> str:
-#         """Use the tool asynchronously."""
-#         raise NotImplementedError("SQLDbTool does not support async")
+    async def _arun(self, query: str, run_manager: Optional[AsyncCallbackManagerForToolRun] = None) -> str:
+        """Use the tool asynchronously."""
+        raise NotImplementedError("SQLDbTool does not support async")
         
         
         
@@ -547,166 +547,166 @@ class ChatGPTTool(BaseTool):
         
     
     
-# class GetBingSearchResults_Tool(BaseTool):
-#     """Tool for a Bing Search Wrapper"""
+class GetBingSearchResults_Tool(BaseTool):
+    """Tool for a Bing Search Wrapper"""
 
-#     name = "Searcher"
-#     description = "useful to search the internet.\n"
-#     args_schema: Type[BaseModel] = SearchInput
+    name = "Searcher"
+    description = "useful to search the internet.\n"
+    args_schema: Type[BaseModel] = SearchInput
 
-#     k: int = 5
+    k: int = 5
     
-#     def _run(self, query: str, run_manager: Optional[CallbackManagerForToolRun] = None) -> str:
-#         bing = BingSearchAPIWrapper(k=self.k)
-#         try:
-#             return bing.results(query,num_results=self.k)
-#         except:
-#             return "No Results Found"
+    def _run(self, query: str, run_manager: Optional[CallbackManagerForToolRun] = None) -> str:
+        bing = BingSearchAPIWrapper(k=self.k)
+        try:
+            return bing.results(query,num_results=self.k)
+        except:
+            return "No Results Found"
     
-#     async def _arun(self, query: str, run_manager: Optional[AsyncCallbackManagerForToolRun] = None) -> str:
-#         bing = BingSearchAPIWrapper(k=self.k)
-#         loop = asyncio.get_event_loop()
-#         try:
-#             results = await loop.run_in_executor(ThreadPoolExecutor(), bing.results, query, self.k)
-#             return results
-#         except:
-#             return "No Results Found"
+    async def _arun(self, query: str, run_manager: Optional[AsyncCallbackManagerForToolRun] = None) -> str:
+        bing = BingSearchAPIWrapper(k=self.k)
+        loop = asyncio.get_event_loop()
+        try:
+            results = await loop.run_in_executor(ThreadPoolExecutor(), bing.results, query, self.k)
+            return results
+        except:
+            return "No Results Found"
             
 
-# class BingSearchAgent(BaseTool):
-#     """Agent to interact with Bing"""
+class BingSearchAgent(BaseTool):
+    """Agent to interact with Bing"""
     
-#     name = "bing"
-#     description = "useful when the questions includes the term: bing.\n"
-#     args_schema: Type[BaseModel] = SearchInput
+    name = "bing"
+    description = "useful when the questions includes the term: bing.\n"
+    args_schema: Type[BaseModel] = SearchInput
     
-#     llm: AzureChatOpenAI
-#     k: int = 5
+    llm: AzureChatOpenAI
+    k: int = 5
     
-#     def parse_html(self, content) -> str:
-#         soup = BeautifulSoup(content, 'html.parser')
-#         text_content_with_links = soup.get_text()
-#         return text_content_with_links
+    def parse_html(self, content) -> str:
+        soup = BeautifulSoup(content, 'html.parser')
+        text_content_with_links = soup.get_text()
+        return text_content_with_links
 
-#     def fetch_web_page(self, url: str) -> str:
-#         HEADERS = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:90.0) Gecko/20100101 Firefox/90.0'}
-#         response = requests.get(url, headers=HEADERS)
-#         return self.parse_html(response.content)
+    def fetch_web_page(self, url: str) -> str:
+        HEADERS = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:90.0) Gecko/20100101 Firefox/90.0'}
+        response = requests.get(url, headers=HEADERS)
+        return self.parse_html(response.content)
 
 
-#     def _run(self, query: str, run_manager: Optional[CallbackManagerForToolRun] = None) -> str:
-#         try:
+    def _run(self, query: str, run_manager: Optional[CallbackManagerForToolRun] = None) -> str:
+        try:
             
-#             web_fetch_tool = Tool.from_function(
-#                 func=self.fetch_web_page,
-#                 name="WebFetcher",
-#                 description="useful to fetch the content of a url"
-#             )
+            web_fetch_tool = Tool.from_function(
+                func=self.fetch_web_page,
+                name="WebFetcher",
+                description="useful to fetch the content of a url"
+            )
 
-#             tools = [GetBingSearchResults_Tool(k=self.k), web_fetch_tool]
-#             agent = create_openai_tools_agent(self.llm, tools, BINGSEARCH_PROMPT)
+            tools = [GetBingSearchResults_Tool(k=self.k), web_fetch_tool]
+            agent = create_openai_tools_agent(self.llm, tools, BINGSEARCH_PROMPT)
 
-#             agent_executor = AgentExecutor(agent=agent, tools=tools,
-#                                             return_intermediate_steps=True,
-#                                             callback_manager=self.callbacks,
-#                                             verbose=self.verbose,
-#                                             handle_parsing_errors=True)
+            agent_executor = AgentExecutor(agent=agent, tools=tools,
+                                            return_intermediate_steps=True,
+                                            callback_manager=self.callbacks,
+                                            verbose=self.verbose,
+                                            handle_parsing_errors=True)
 
-#             parsed_input = self._parse_input(query)
-#             response = agent_executor.invoke({"question":parsed_input})['output']
+            parsed_input = self._parse_input(query)
+            response = agent_executor.invoke({"question":parsed_input})['output']
 
-#             return response
+            return response
 
-#         except Exception as e:
-#             print(e)
+        except Exception as e:
+            print(e)
     
-#     async def _arun(self, query: str, run_manager: Optional[AsyncCallbackManagerForToolRun] = None) -> str:
-#         """Use the tool asynchronously."""
-#         raise NotImplementedError("BingSearchTool does not support async")
+    async def _arun(self, query: str, run_manager: Optional[AsyncCallbackManagerForToolRun] = None) -> str:
+        """Use the tool asynchronously."""
+        raise NotImplementedError("BingSearchTool does not support async")
         
         
         
-# class GetAPISearchResults_Tool(BaseTool):
-#     """APIChain as a tool"""
+class GetAPISearchResults_Tool(BaseTool):
+    """APIChain as a tool"""
     
-#     name = "apisearch"
-#     description = "useful when the questions includes the term: apisearch.\n"
-#     args_schema: Type[BaseModel] = SearchInput
+    name = "apisearch"
+    description = "useful when the questions includes the term: apisearch.\n"
+    args_schema: Type[BaseModel] = SearchInput
 
-#     llm: AzureChatOpenAI
-#     api_spec: str
-#     headers: dict = {}
-#     limit_to_domains: list = []
-#     verbose: bool = False
+    llm: AzureChatOpenAI
+    api_spec: str
+    headers: dict = {}
+    limit_to_domains: list = []
+    verbose: bool = False
     
-#     def _run(self, query: str, run_manager: Optional[CallbackManagerForToolRun] = None) -> str:
+    def _run(self, query: str, run_manager: Optional[CallbackManagerForToolRun] = None) -> str:
         
-#         chain = APIChain.from_llm_and_api_docs(
-#                             llm=self.llm,
-#                             api_docs=self.api_spec,
-#                             headers=self.headers,
-#                             verbose=self.verbose,
-#                             limit_to_domains=self.limit_to_domains
-#                             )
-#         try:
-#             sleep(2) # This is optional to avoid possible TPM rate limits
-#             response = chain.invoke(query)
-#         except Exception as e:
-#             response = e
+        chain = APIChain.from_llm_and_api_docs(
+                            llm=self.llm,
+                            api_docs=self.api_spec,
+                            headers=self.headers,
+                            verbose=self.verbose,
+                            limit_to_domains=self.limit_to_domains
+                            )
+        try:
+            sleep(2) # This is optional to avoid possible TPM rate limits
+            response = chain.invoke(query)
+        except Exception as e:
+            response = e
         
-#         return response
+        return response
             
-#     async def _arun(self, query: str, run_manager: Optional[AsyncCallbackManagerForToolRun] = None) -> str:
-#         """Use the tool asynchronously."""
-#         raise NotImplementedError("This Tool does not support async")
+    async def _arun(self, query: str, run_manager: Optional[AsyncCallbackManagerForToolRun] = None) -> str:
+        """Use the tool asynchronously."""
+        raise NotImplementedError("This Tool does not support async")
         
 
-# class APISearchAgent(BaseTool):
-#     """Agent to interact with any API given a OpenAPI 3.0 spec"""
+class APISearchAgent(BaseTool):
+    """Agent to interact with any API given a OpenAPI 3.0 spec"""
     
-#     name = "apisearch"
-#     description = "useful when the questions includes the term: apisearch.\n"
-#     args_schema: Type[BaseModel] = SearchInput
+    name = "apisearch"
+    description = "useful when the questions includes the term: apisearch.\n"
+    args_schema: Type[BaseModel] = SearchInput
     
-#     llm: AzureChatOpenAI
-#     llm_search: AzureChatOpenAI
-#     api_spec: str
-#     headers: dict = {}
-#     limit_to_domains: list = None
-#     verbose: bool = False
+    llm: AzureChatOpenAI
+    llm_search: AzureChatOpenAI
+    api_spec: str
+    headers: dict = {}
+    limit_to_domains: list = None
+    verbose: bool = False
     
-#     def _run(self, query: str, run_manager: Optional[CallbackManagerForToolRun] = None) -> str:
-#         try:
-#             tools = [GetAPISearchResults_Tool(llm=self.llm,
-#                                               llm_search=self.llm_search,
-#                                               api_spec=str(self.api_spec),
-#                                               headers=self.headers,
-#                                               verbose=self.verbose,
-#                                               limit_to_domains=self.limit_to_domains)]
+    def _run(self, query: str, run_manager: Optional[CallbackManagerForToolRun] = None) -> str:
+        try:
+            tools = [GetAPISearchResults_Tool(llm=self.llm,
+                                              llm_search=self.llm_search,
+                                              api_spec=str(self.api_spec),
+                                              headers=self.headers,
+                                              verbose=self.verbose,
+                                              limit_to_domains=self.limit_to_domains)]
             
-#             parsed_input = self._parse_input(query)
+            parsed_input = self._parse_input(query)
             
-#             agent = create_openai_tools_agent(llm=self.llm, tools=tools, prompt=APISEARCH_PROMPT)
-#             agent_executor = AgentExecutor(agent=agent, tools=tools, 
-#                                            verbose=self.verbose, 
-#                                            return_intermediate_steps=True,
-#                                            callback_manager=self.callbacks)
+            agent = create_openai_tools_agent(llm=self.llm, tools=tools, prompt=APISEARCH_PROMPT)
+            agent_executor = AgentExecutor(agent=agent, tools=tools, 
+                                           verbose=self.verbose, 
+                                           return_intermediate_steps=True,
+                                           callback_manager=self.callbacks)
 
             
-#             for i in range(2):
-#                 try:
-#                     response = agent_executor.invoke({"question":parsed_input})["output"]
-#                     break
-#                 except Exception as e:
-#                     response = str(e)
-#                     continue
+            for i in range(2):
+                try:
+                    response = agent_executor.invoke({"question":parsed_input})["output"]
+                    break
+                except Exception as e:
+                    response = str(e)
+                    continue
 
-#             return response
+            return response
         
-#         except Exception as e:
-#             print(e)
+        except Exception as e:
+            print(e)
     
-#     async def _arun(self, query: str, run_manager: Optional[AsyncCallbackManagerForToolRun] = None) -> str:
-#         """Use the tool asynchronously."""
-#         raise NotImplementedError("APISearchAgent does not support async")
+    async def _arun(self, query: str, run_manager: Optional[AsyncCallbackManagerForToolRun] = None) -> str:
+        """Use the tool asynchronously."""
+        raise NotImplementedError("APISearchAgent does not support async")
         
