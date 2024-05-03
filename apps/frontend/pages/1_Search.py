@@ -15,6 +15,21 @@ from prompts import DOCSEARCH_PROMPT
 
 st.set_page_config(page_title="GPT Smart Search", page_icon="📖", layout="wide")
 # Add custom CSS styles to adjust padding
+st.markdown(
+        """
+        <style>
+            [data-testid="stSidebarNav"] {
+                background-image: url(https://blobstorage3h6aqgwxxzpak.blob.core.windows.net/icon/gai_demo_logo_wh.png);
+                background-repeat: no-repeat;
+                background-size: contain;
+                padding-top: 80px;
+                background-position: 20px 20px;
+            }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
+
 st.markdown("""
         <style>
                .block-container {
@@ -113,6 +128,8 @@ else:
 
 
                     with placeholder.container():
+
+                        # Search 의 Answer 결과 출력 제거
 
                         # st.markdown("#### Answer")
                         # st.markdown(answer, unsafe_allow_html=True)

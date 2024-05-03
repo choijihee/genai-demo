@@ -1,5 +1,21 @@
 import streamlit as st
 
+st.markdown(
+        """
+        <style>
+            [data-testid="stSidebarNav"] {
+                background-image: url(https://blobstorage3h6aqgwxxzpak.blob.core.windows.net/icon/gai_demo_logo_wh.png);
+                background-repeat: no-repeat;
+                background-size: contain;
+                padding-top: 80px;
+                background-position: 20px 20px;
+            }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
+
+st.image("https://blobstorage3h6aqgwxxzpak.blob.core.windows.net/icon/sk_logo.png", width=70)
 st.header("Generative AI Chatbot (SK C&C)")
 
 st.markdown("---")

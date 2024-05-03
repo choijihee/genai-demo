@@ -5,6 +5,21 @@ import streamlit.components.v1 as components
 # From here down is all the StreamLit UI.
 st.set_page_config(page_title="GPT Smart Agent", page_icon="📖", layout="wide")
 # Add custom CSS styles to adjust padding
+st.markdown(
+        """
+        <style>
+            [data-testid="stSidebarNav"] {
+                background-image: url(https://blobstorage3h6aqgwxxzpak.blob.core.windows.net/icon/gai_demo_logo_wh.png);
+                background-repeat: no-repeat;
+                background-size: contain;
+                padding-top: 80px;
+                background-position: 20px 20px;
+            }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
+
 st.markdown("""
         <style>
                .block-container {
@@ -120,7 +135,7 @@ f"""
       const avatarOptions = {{
           botAvatarInitials: '.',
           userAvatarInitials: 'Me',
-          botAvatarImage: 'https://dwglogo.com/wp-content/uploads/2019/03/1600px-OpenAI_logo-1024x705.png',
+          botAvatarImage: 'https://blobstorage3h6aqgwxxzpak.blob.core.windows.net/icon/sk_logo.png',
           
           }};
       const markdownIt = window.markdownit({{html:true}});

@@ -58,6 +58,20 @@ st.set_page_config(page_title="FastAPI Backend Bot", page_icon="🤖", layout="w
 
 # 참고: @로 시작하는 도구 이름을 사용하지 않으면 봇이 자체 지식이나 사용 가능한 도구를 사용하여 질문에 답변하려고 시도합니다.
 #     """)
+st.markdown(
+        """
+        <style>
+            [data-testid="stSidebarNav"] {
+                background-image: url(https://blobstorage3h6aqgwxxzpak.blob.core.windows.net/icon/gai_demo_logo_wh.png);
+                background-repeat: no-repeat;
+                background-size: contain;
+                padding-top: 80px;
+                background-position: 20px 20px;
+            }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
 
 st.markdown("""
         <style>

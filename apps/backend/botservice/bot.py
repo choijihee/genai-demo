@@ -51,6 +51,8 @@ class BotServiceCallbackHandler(BaseCallbackHandler):
     async def on_llm_error(self, error: Union[Exception, KeyboardInterrupt], **kwargs: Any) -> Any:
         await self.tc.send_activity(f"LLM Error: {error}\n")
 
+    # WebChat 답변 시 Tool:, Agent Action:에 대한 Callback 제거 
+
     # async def on_tool_start(self, serialized: Dict[str, Any], input_str: str, **kwargs: Any) -> Any:
     #     await self.tc.send_activity(f"Tool: {serialized['name']}")
 

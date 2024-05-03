@@ -20,6 +20,8 @@ class StdOutCallbackHandler(BaseCallbackHandler):
         """Run when LLM errors."""
         sys.stdout.write(f"LLM Error: {error}\n")
 
+    # WebChat 답변 시 Tool:, Agent Action:에 대한 Callback 제거 
+
     # def on_tool_start(self, serialized: Dict[str, Any], input_str: str, **kwargs: Any) -> Any:
     #     sys.stdout.write(f"Tool: {serialized['name']}\n")
         
