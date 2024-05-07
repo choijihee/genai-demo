@@ -13,7 +13,7 @@ from langchain_core.output_parsers import StrOutputParser
 from utils import get_search_results
 from prompts import DOCSEARCH_PROMPT
 
-st.set_page_config(page_title="GPT Smart Search", page_icon="📖", layout="wide")
+st.set_page_config(page_title="SK C&C Gen.AI Demo", page_icon='https://blobstorage3h6aqgwxxzpak.blob.core.windows.net/icon/sk_logo.png', layout="wide")
 # Add custom CSS styles to adjust padding
 st.markdown(
         """

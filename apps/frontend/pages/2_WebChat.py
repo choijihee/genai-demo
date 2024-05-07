@@ -3,7 +3,7 @@ import streamlit as st
 import streamlit.components.v1 as components
 
 # From here down is all the StreamLit UI.
-st.set_page_config(page_title="GPT Smart Agent", page_icon="📖", layout="wide")
+st.set_page_config(page_title="SK C&C Gen.AI Demo", page_icon='https://blobstorage3h6aqgwxxzpak.blob.core.windows.net/icon/sk_logo.png', layout="wide")
 # Add custom CSS styles to adjust padding
 st.markdown(
         """

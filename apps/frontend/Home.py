@@ -1,5 +1,6 @@
 import streamlit as st
 
+st.set_page_config(page_title="SK C&C Gen.AI Demo", page_icon='https://blobstorage3h6aqgwxxzpak.blob.core.windows.net/icon/sk_logo.png', layout="wide")
 st.markdown(
         """
         <style>
