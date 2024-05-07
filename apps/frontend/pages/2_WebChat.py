@@ -69,7 +69,7 @@ f"""
       html,
       body {{
           height: 100%;
-          background-image: linear-gradient( #343541,#525468);
+          background-image: linear-gradient( #FFFFFF,#FFFFFF);
           color: antiquewhite;
           font-family: 'Segoe UI', Calibri, sans-serif;
       }}
@@ -79,37 +79,36 @@ f"""
       }}
 
       #webchat {{
-        height: 85%;
+        height: 100%;
         width: 100%;
       }}
       .webchat__stacked-layout--from-user{{
-        background-color: rgba(32,33,35, .2);
+        background-color: 'white';
       }}
       
     </style>
   </head>
   <body>
-    <h1><img src='https://blobstorage3h6aqgwxxzpak.blob.core.windows.net/icon/sk_logo.png' height="40">Smart ChatBot Demo</h1> 
     <div id="webchat" role="main"></div>
     <script>
       // Set  the CSS rules.
       const styleSet = window.WebChat.createStyleSet({{
           bubbleBackground: 'transparent',
-          bubbleBorderColor: 'darkslategrey',
+          bubbleBorderColor: 'antiquewhite',
           bubbleBorderRadius: 5,
           bubbleBorderStyle: 'solid',
           bubbleBorderWidth: 0,
-          bubbleTextColor: 'antiquewhite',
+          bubbleTextColor: 'black',
 
-          userAvatarBackgroundColor: 'rgba(53, 55, 64, .3)',
+          userAvatarBackgroundColor: 'rgba(255, 140, 0)',
           bubbleFromUserBackground: 'transparent', 
-          bubbleFromUserBorderColor: '#E6E6E6',
+          bubbleFromUserBorderColor: 'antiquewhite',
           bubbleFromUserBorderRadius: 5,
           bubbleFromUserBorderStyle: 'solid',
           bubbleFromUserBorderWidth: 0,
-          bubbleFromUserTextColor: 'antiquewhite',
+          bubbleFromUserTextColor: 'black',
 
-          notificationText: 'white',
+          notificationText: 'black',
 
           bubbleMinWidth: 400,
           bubbleMaxWidth: 720,
@@ -120,7 +119,7 @@ f"""
 
           rootHeight: '100%',
           rootWidth: '100%',
-          backgroundColor: 'rgba(70, 130, 180, .2)',
+          backgroundColor: 'rgba(255, 255, 255)',
 
           hideUploadButton: 'true'
       }});
