@@ -21,3 +21,4 @@ python-dotenv
 azure-ai-formrecognizer
 azure-storage-blob
 beautifulsoup4
+fastapi
