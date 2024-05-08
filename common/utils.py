@@ -552,25 +552,32 @@ class ChatGPTTool(BaseTool):
     args_schema: Type[BaseModel] = SearchInput
 
     llm: AzureChatOpenAI
-    
-    def _run(self, query: str) -> str:
+
+    class Config:
+        extra = Extra.allow  # Allows setting attributes not declared in the model
+
+    def __init__(self, **data):
+        super().__init__(**data)
+
+        output_parser = StrOutputParser()
+        self.chatgpt_chain = CHATGPT_PROMPT | self.llm | output_parser
+
+    def _run(self, query: str, return_direct = False, run_manager: Optional[CallbackManagerForToolRun] = None) -> str:
         try:
-            chatgpt_chain = LLMChain(
-                llm=self.llm, 
-                prompt=CHATGPT_PROMPT,
-                callback_manager=self.callbacks,
-                verbose=self.verbose
-            )
-
-            response = chatgpt_chain.invoke(query)["text"]
-
+            response = self.chatgpt_chain.invoke({"question": query})
             return response
         except Exception as e:
             print(e)
-            
-    async def _arun(self, query: str, run_manager: Optional[AsyncCallbackManagerForToolRun] = None) -> str:
-        """Use the tool asynchronously."""
-        raise NotImplementedError("ChatGPTTool does not support async")
+            return str(e)  # Return an error indicator
+
+    async def _arun(self, query: str, return_direct = False, run_manager: Optional[AsyncCallbackManagerForToolRun] = None) -> str:
+        """Implement the tool to be used asynchronously."""
+        try:
+            response = await self.chatgpt_chain.ainvoke({"question": query})
+            return response
+        except Exception as e:
+            print(e)
+            return str(e)  # Return an error indicator
         
     
     
