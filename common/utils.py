@@ -22,7 +22,7 @@ from azure.ai.formrecognizer import DocumentAnalysisClient
 from azure.core.credentials import AzureKeyCredential
 
 from langchain.callbacks.manager import AsyncCallbackManagerForToolRun, CallbackManagerForToolRun
-from langchain.pydantic_v1 import BaseModel, Field
+from langchain.pydantic_v1 import BaseModel, Field, Extra
 from langchain.tools import BaseTool, StructuredTool, tool
 from typing import Dict, List
 from concurrent.futures import ThreadPoolExecutor
@@ -411,24 +411,51 @@ class DocSearchAgent(BaseTool):
     reranker_th: int = 1
     sas_token: str = ""   
     
-    def _run(self, query: str, run_manager: Optional[CallbackManagerForToolRun] = None) -> str:
-        try:
-            tools = [GetDocSearchResults_Tool(indexes=self.indexes, k=self.k, reranker_th=self.reranker_th, sas_token=self.sas_token)]
+    # def _run(self, query: str, run_manager: Optional[CallbackManagerForToolRun] = None) -> str:
+    #     try:
+    #         tools = [GetDocSearchResults_Tool(indexes=self.indexes, k=self.k, reranker_th=self.reranker_th, sas_token=self.sas_token)]
 
-            agent = create_openai_tools_agent(self.llm, tools, AGENT_DOCSEARCH_PROMPT)
+    #         agent = create_openai_tools_agent(self.llm, tools, AGENT_DOCSEARCH_PROMPT)
 
-            agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=False, callback_manager=self.callbacks, handle_parsing_errors=True)
+    #         agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=False, callback_manager=self.callbacks, handle_parsing_errors=True)
 
-            response = agent_executor.invoke({"question":query})['output']
+    #         response = agent_executor.invoke({"question":query})['output']
             
-            return response
+    #         return response
 
+    #     except Exception as e:
+    #         print(e)
+    
+    # async def _arun(self, query: str, run_manager: Optional[AsyncCallbackManagerForToolRun] = None) -> str:
+    #     """Use the tool asynchronously."""
+    #     raise NotImplementedError("DocSearchTool does not support async")
+    class Config:
+        extra = Extra.allow  # Allows setting attributes not declared in the model
+    
+    def __init__(self, **data):
+        super().__init__(**data)
+        tools = [GetDocSearchResults_Tool(indexes=self.indexes, k=self.k, reranker_th=self.reranker_th, sas_token=self.sas_token)]
+
+        agent = create_openai_tools_agent(self.llm, tools, AGENT_DOCSEARCH_PROMPT)
+
+        self.agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=self.verbose, callback_manager=self.callbacks, handle_parsing_errors=True)
+        
+    
+    def _run(self, query: str,  return_direct = False, run_manager: Optional[CallbackManagerForToolRun] = None) -> str:
+        try:
+            result = self.agent_executor.invoke({"question": query})
+            return result['output']
         except Exception as e:
             print(e)
-    
-    async def _arun(self, query: str, run_manager: Optional[AsyncCallbackManagerForToolRun] = None) -> str:
-        """Use the tool asynchronously."""
-        raise NotImplementedError("DocSearchTool does not support async")
+            return str(e)  # Return an empty string or some error indicator
+
+    async def _arun(self, query: str,  return_direct = False, run_manager: Optional[AsyncCallbackManagerForToolRun] = None) -> str:
+        try:
+            result = await self.agent_executor.ainvoke({"question": query})
+            return result['output']
+        except Exception as e:
+            print(e)
+            return str(e)  # Return an empty string or some error indicator
     
     
 
