@@ -110,21 +110,22 @@ else:
                         top_docs.append(Document(page_content=value["chunk"], metadata={"source": location, "score":value["score"]}))
                         add_text = "Reading the source documents to provide the best answer... ⏳"
 
-                    if "add_text" in locals():
-                        with st.spinner(add_text):
-                            if(len(top_docs)>0):
-                                chain = (
-                                    DOCSEARCH_PROMPT  # Passes the 4 variables above to the prompt template
-                                    | llm   # Passes the finished prompt to the LLM
-                                    | StrOutputParser()  # converts the output (Runnable object) to the desired output (string)
-                                )
+                    # LLM Search Answer 로직 제거
+                    # if "add_text" in locals():
+                    #     with st.spinner(add_text):
+                    #         if(len(top_docs)>0):
+                    #             chain = (
+                    #                 DOCSEARCH_PROMPT  # Passes the 4 variables above to the prompt template
+                    #                 | llm   # Passes the finished prompt to the LLM
+                    #                 | StrOutputParser()  # converts the output (Runnable object) to the desired output (string)
+                    #             )
     
-                                answer = chain.invoke({"question": query, "context":top_docs})
+                    #             answer = chain.invoke({"question": query, "context":top_docs})
                                 
-                            else:
-                                answer = {"output_text":"No results found" }
-                    else:
-                        answer = {"output_text":"No results found" }
+                    #         else:
+                    #             answer = {"output_text":"No results found" }
+                    # else:
+                    #     answer = {"output_text":"No results found" }
 
 
                     with placeholder.container():
