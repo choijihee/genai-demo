@@ -38,7 +38,7 @@ from botbuilder.schema import ChannelAccount, Activity, ActivityTypes
 os.environ["OPENAI_API_VERSION"] = os.environ.get("AZURE_OPENAI_API_VERSION")
 os.environ["LANGCHAIN_TRACING_V2"]="true"
 os.environ["LANGCHAIN_ENDPOINT"]="https://api.smith.langchain.com"
-os.environ["LANGCHAIN_API_KEY"]="ls__e98c2cdca9a74a9a9d533904c59aa81e"
+os.environ["LANGCHAIN_API_KEY"]="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"
 os.environ["LANGCHAIN_PROJECT"]="default"
 
 # Callback hanlder used for the bot service to inform the client of the thought process before the final response
